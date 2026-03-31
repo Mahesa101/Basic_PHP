@@ -39,8 +39,8 @@ echo $x / $y . "<br>";
 
 //Concat / penggabung string
 
-$nama_depan = "kon";
-$nama_belakang = "tol <br>";
+$nama_depan = "ap";
+$nama_belakang = "i <br>";
 
 echo $nama_depan . $nama_belakang;
 
