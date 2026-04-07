@@ -39,8 +39,8 @@ $data = query("SELECT * FROM website");
 <body>
     <h1>Daftar Website</h1>
 
-<a href="add.php" target="_blank">ADD News Item</a>
-<br><br>
+    <a href="add.php" target="_blank">ADD News Item</a>
+    <br><br>
 
     <table>
 
@@ -58,7 +58,7 @@ $data = query("SELECT * FROM website");
                 <td><?= $i; ?></td>
                 <td>
                     <a href="">Edit</a> |
-                    <a href="">Delete</a>
+                    <a href="delete.php?id=<?= $datas["ID"]; ?>" onclick="return confirm('sure?')">Delete</a>
                 </td>
                 <td><img src="../9_php/logo/<?= $datas["Gambar"] ?>" alt="gambar" width="50"></td>
                 <td><?= $datas["Nama"] ?></td>

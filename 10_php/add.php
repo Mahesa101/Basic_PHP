@@ -1,47 +1,36 @@
 <?php
-//menghubungkan ke database
-$db = mysqli_connect("localhost", "root", "", "webterkenal");
+//menghubungkan dengan file functioins
+require 'functions.php';
+
 
 //jika tombol submit di pencet
 if (isset($_POST["submit"])) {
+    //tempat fungsi di tarok
+    $hasil = tambah($_POST);
+    //cek apakah ada yang error atau tidak
+    //menggunakan mysqli_affected_rows yang akan memberi sebuah nilai int -1 jika error dan memberi +1 jika berhasil
 
-    //ambil data setiap elemen
-    $nama = $_POST["Nama"];
-    $url = $_POST["URL"];
-    $kategori = $_POST["Kategori"];
-    $tech = $_POST["Tech"];
-    $keterangan = $_POST["Keterangan"];
-    $gambar = $_POST["Gambar"];
+    if ($hasil > 0) {
+        echo "<script>
+                    alert('succeed:Data Berhasil Disimpan!');
+                    document.location.href = 'index.php'; 
+                </script>";
+    } else if ($hasil === 0) {
+        echo "<script>
+                    alert('failed:Data tidak masuk.!');
+                    document.location.href = 'index.php'; 
+                </script>";
+    } else {
+        $error_msg = mysqli_error($db);
 
-    if (!empty($nama) && !empty($url) && !empty($kategori) && !empty($tech) && !empty($keterangan) && !empty($gambar)) {
-
-        //query insert data / memasukan data
-        $query = "INSERT INTO website
-            VALUES
-            ('','$nama','$url','$kategori','$tech','$keterangan','$gambar')
-        -- dibuat sebuah varibael seperti $nama bertujuan agar saat memasukan sebuah values tidak repot
-";
-
-        mysqli_query($db, $query);
-
-        //cek apakah ada yang error atau tidak
-        //menggunakan mysqli_affected_rows yang akan memberi sebuah nilai int -1 jika error dan memberi +1 jika berhasil
-
-        if (mysqli_affected_rows($db) > 0) {
-            echo "
+        echo "Error Database: 
         <script>
-            alert('Data Berhasil Disimpan!');
-            document.location.href = 'tambah_data.php'; // Arahkan kembali ke dirinya sendiri
-        </script>
-    ";
-        } else {
-            echo "failed: Data tidak masuk. " . mysqli_error($db);
-            echo "<br>";
-        };
-    }else{
-        echo"failed: Data tidak diisi semua";
+                    alert('Error Database:$error_msg');
+                    document.location.href = 'index.php'; 
+                </script>
+        ";
     }
-};
+}
 ?>
 
 
@@ -62,25 +51,25 @@ if (isset($_POST["submit"])) {
             <li>
                 <!-- for itu pasangan dari id -->
                 <Label for="nama">Nama:</Label>
-                <input type="text" name="Nama" id="nama">
+                <input type="text" name="Nama" id="nama" require>
             </li>
 
             <li>
                 <!-- for itu pasangan dari id -->
                 <Label for="url">Url:</Label>
-                <input type="text" name="URL" id="url">
+                <input type="text" name="URL" id="url" require>
             </li>
 
             <li>
                 <!-- for itu pasangan dari id -->
                 <Label for="kategori">Kategori:</Label>
-                <input type="text" name="Kategori" id="kategori">
+                <input type="text" name="Kategori" id="kategori" require>
             </li>
 
             <li>
                 <!-- for itu pasangan dari id -->
                 <Label for="tech">Tech:</Label>
-                <input type="text" name="Tech" id="tech">
+                <input type="text" name="Tech" id="tech" require>
             </li>
 
             <li>
