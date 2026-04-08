@@ -1,0 +1,768 @@
+/* ================================================================
+   DEEP SEA  —  underwater ocean theme
+   inspired by teal silhouette + blue-purple underwater illustrations
+   Web Terkenal  |  Mahesa × Claude
+   ================================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Share+Tech+Mono&display=swap");
+
+/* ─── PALETTE ─────────────────────────────────────────────────── */
+:root {
+  /* dari gambar 1 — teal silhouette */
+  --teal-surface: #00d4d4;
+  --teal-mid: #00a8b5;
+  --teal-deep: #007a8a;
+  --teal-abyss: #004455;
+  --silhouette: #00303d;
+  --silhouette2: #00222e;
+
+  /* dari gambar 2 — biru-ungu underwater */
+  --blue-light: #4fc8f0;
+  --blue-mid: #1565d8;
+  --blue-deep: #0d3aaa;
+  --indigo: #1a1a72;
+  --purple-deep: #150d4a;
+  --ray-color: rgba(180, 230, 255, 0.12);
+
+  /* aksen & teks */
+  --foam-white: #d6f5ff;
+  --bubble: rgba(200, 240, 255, 0.65);
+  --text-main: #e0f8ff;
+  --text-muted: #7ec8e3;
+  --gold-coral: #f0a060;
+  --delete-red: #ff6b5b;
+
+  --font-title: "Cinzel", serif;
+  --font-body: "Crimson Pro", serif;
+  --font-mono: "Share Tech Mono", monospace;
+}
+
+/* ─── RESET ───────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BACKGROUND — underwater scene seperti gambar referensi
+   ══════════════════════════════════════════════════════════════ */
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-main);
+  position: relative;
+
+  /* gradasi biru-ungu dalam seperti gambar 2 */
+  background:
+    radial-gradient(ellipse 100% 60% at 50% 0%, #1a6eb5 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 20% 30%, #0d3aaa 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 80% 20%, #1a1a72 0%, transparent 60%),
+    linear-gradient(
+      180deg,
+      #0a0a3a 0%,
+      #0d1a72 8%,
+      #1040b0 18%,
+      #0e6ab5 30%,
+      #0a90c0 42%,
+      #057aa0 55%,
+      #005570 70%,
+      #003050 85%,
+      #001525 100%
+    );
+}
+
+/* ── sinar cahaya dari atas (seperti kedua gambar referensi) ── */
+body::before {
+  content: "";
+  position: fixed;
+  top: -5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160%;
+  height: 75vh;
+  pointer-events: none;
+  z-index: 0;
+
+  background:
+    /* sinar kiri */
+    linear-gradient(175deg, rgba(150, 220, 255, 0.18) 0%, transparent 55%)
+      no-repeat,
+    /* sinar tengah kuat */
+    linear-gradient(180deg, rgba(180, 235, 255, 0.22) 0%, transparent 60%)
+      no-repeat,
+    /* sinar kanan */
+    linear-gradient(185deg, rgba(150, 220, 255, 0.15) 0%, transparent 50%)
+      no-repeat,
+    /* sinar kiri jauh */
+    linear-gradient(170deg, rgba(100, 190, 255, 0.1) 0%, transparent 45%)
+      no-repeat,
+    /* sinar kanan jauh */
+    linear-gradient(190deg, rgba(100, 190, 255, 0.1) 0%, transparent 45%)
+      no-repeat;
+
+  background-size:
+    18% 100%,
+    22% 100%,
+    18% 100%,
+    14% 100%,
+    14% 100%;
+  background-position:
+    28% 0,
+    46% 0,
+    64% 0,
+    14% 0,
+    80% 0;
+
+  animation: rays 12s ease-in-out infinite alternate;
+}
+
+@keyframes rays {
+  0% {
+    opacity: 0.7;
+    transform: translateX(-50%) scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1.05);
+  }
+  100% {
+    opacity: 0.6;
+    transform: translateX(-50%) scaleX(0.97);
+  }
+}
+
+/* ── gelembung naik dari bawah ── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(
+      circle 3px at 15% 80%,
+      var(--bubble) 100%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 2px at 28% 65%,
+      var(--bubble) 100%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 4px at 42% 90%,
+      var(--bubble) 100%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 2px at 58% 70%,
+      var(--bubble) 100%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 3px at 72% 85%,
+      var(--bubble) 100%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 2px at 85% 60%,
+      var(--bubble) 100%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 1px at 20% 40%,
+      var(--bubble) 100%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 2px at 50% 50%,
+      var(--bubble) 100%,
+      transparent 100%
+    ),
+    radial-gradient(circle 1px at 65% 35%, var(--bubble) 100%, transparent 100%);
+  animation: float-bubbles 20s ease-in-out infinite alternate;
+}
+
+@keyframes float-bubbles {
+  0% {
+    background-position:
+      0% 0%,
+      0% 0%,
+      0% 0%,
+      0% 0%,
+      0% 0%,
+      0% 0%,
+      0% 0%,
+      0% 0%,
+      0% 0%;
+  }
+  100% {
+    background-position:
+      2% -30%,
+      -1% -20%,
+      1% -40%,
+      -2% -25%,
+      3% -35%,
+      -1% -15%,
+      2% -50%,
+      -1% -30%,
+      1% -40%;
+  }
+}
+
+/* ── dasar laut / siluet bawah (seperti gambar 1) ── */
+.seafloor {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    /* siluet batu-batuan dan karang */
+    radial-gradient(
+      ellipse 25% 180px at 8% 100%,
+      var(--silhouette2) 70%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 20% 140px at 18% 100%,
+      var(--silhouette) 80%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 30% 160px at 32% 100%,
+      var(--silhouette2) 65%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 15% 130px at 45% 100%,
+      var(--silhouette) 75%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 25% 170px at 58% 100%,
+      var(--silhouette2) 70%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 20% 150px at 70% 100%,
+      var(--silhouette) 80%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 28% 160px at 82% 100%,
+      var(--silhouette2) 65%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 22% 140px at 92% 100%,
+      var(--silhouette) 75%,
+      transparent 100%
+    ),
+    /* dasar rata */
+    linear-gradient(180deg, transparent 40%, var(--silhouette2) 100%);
+  opacity: 0.85;
+}
+
+/* ─── CONTAINER ───────────────────────────────────────────────── */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 36px 120px;
+}
+
+/* ─── JUDUL ──────────────────────────────────────────────────── */
+h1 {
+  font-family: var(--font-title);
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  /* efek teks underwater transparan + cahaya seperti gambar 2 */
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(200, 240, 255, 0.7);
+  background: linear-gradient(
+    180deg,
+    rgba(220, 245, 255, 0.95) 0%,
+    rgba(140, 210, 255, 0.8) 40%,
+    rgba(80, 170, 240, 0.65) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  text-shadow:
+    0 0 30px rgba(100, 200, 255, 0.5),
+    0 0 80px rgba(80, 150, 255, 0.25),
+    2px 4px 0 rgba(0, 20, 60, 0.6);
+
+  line-height: 1.05;
+  margin-bottom: 6px;
+  animation: title-glow 5s ease-in-out infinite alternate;
+}
+
+@keyframes title-glow {
+  from {
+    text-shadow:
+      0 0 25px rgba(100, 200, 255, 0.4),
+      0 0 60px rgba(80, 150, 255, 0.2),
+      2px 4px 0 rgba(0, 20, 60, 0.6);
+  }
+  to {
+    text-shadow:
+      0 0 45px rgba(130, 220, 255, 0.7),
+      0 0 100px rgba(100, 170, 255, 0.35),
+      2px 4px 0 rgba(0, 20, 60, 0.6);
+  }
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 3px;
+  margin-top: 14px;
+  background: linear-gradient(90deg, var(--teal-surface), rgba(0, 212, 212, 0));
+  border-radius: 2px;
+}
+
+/* ─── LINKS ──────────────────────────────────────────────────── */
+a {
+  color: var(--teal-surface);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  transition: color 0.25s;
+}
+
+a:hover {
+  color: var(--foam-white);
+}
+
+/* ── tombol ADD — pill teal seperti tombol di gambar 2 ── */
+a[href="add.php"] {
+  display: inline-block;
+  margin-bottom: 30px;
+  padding: 12px 32px;
+
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silhouette2);
+
+  background: linear-gradient(
+    135deg,
+    var(--teal-surface) 0%,
+    var(--blue-light) 100%
+  );
+  border: none;
+  border-radius: 50px;
+
+  box-shadow:
+    0 0 20px rgba(0, 212, 212, 0.45),
+    0 4px 20px rgba(0, 80, 120, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  transition:
+    filter 0.3s,
+    transform 0.2s,
+    box-shadow 0.3s;
+}
+
+a[href="add.php"]:hover {
+  filter: brightness(1.15);
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 35px rgba(0, 212, 212, 0.65),
+    0 8px 28px rgba(0, 80, 120, 0.6);
+  color: var(--silhouette2);
+  text-shadow: none;
+}
+
+/* ─── TABLE ──────────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  background: rgba(5, 20, 50, 0.55);
+  backdrop-filter: blur(16px) saturate(1.4);
+
+  border-radius: 12px;
+  overflow: hidden;
+
+  box-shadow:
+    0 0 0 1px rgba(0, 212, 212, 0.2),
+    0 0 0 2px rgba(5, 20, 50, 0.6),
+    0 20px 60px rgba(0, 10, 40, 0.8),
+    inset 0 1px 0 rgba(180, 230, 255, 0.1);
+}
+
+th {
+  padding: 15px 20px;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal-surface);
+
+  background: linear-gradient(
+    180deg,
+    rgba(10, 60, 120, 0.95) 0%,
+    rgba(5, 20, 60, 0.95) 100%
+  );
+  border-bottom: 1px solid rgba(0, 212, 212, 0.25);
+  white-space: nowrap;
+}
+
+td {
+  padding: 13px 20px;
+  border-bottom: 1px solid rgba(0, 212, 212, 0.07);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(214, 245, 255, 0.88);
+  vertical-align: middle;
+  transition: background 0.2s;
+}
+
+tr:hover td {
+  background: rgba(0, 150, 180, 0.12);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* nomor */
+td:first-child {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: rgba(0, 212, 212, 0.4);
+  text-align: center;
+  width: 48px;
+}
+
+/* aksi */
+td:nth-child(2) a {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 212, 212, 0.3);
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+}
+
+td:nth-child(2) a:first-child:hover {
+  background: rgba(0, 212, 212, 0.15);
+  border-color: var(--teal-surface);
+  color: var(--foam-white);
+}
+
+td:nth-child(2) a:last-child {
+  color: var(--delete-red);
+  border-color: rgba(255, 107, 91, 0.25);
+}
+
+td:nth-child(2) a:last-child:hover {
+  background: rgba(255, 107, 91, 0.12);
+  border-color: var(--delete-red);
+}
+
+td img {
+  display: block;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 212, 212, 0.25);
+  filter: saturate(1.15) brightness(0.9);
+  transition:
+    filter 0.3s,
+    transform 0.3s;
+}
+
+td img:hover {
+  filter: saturate(1.4) brightness(1.05);
+  transform: scale(1.12);
+}
+
+td:nth-child(5) {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ─── FORM ───────────────────────────────────────────────────── */
+form {
+  max-width: 480px;
+  margin-top: 10px;
+  padding: 42px 44px;
+
+  background: rgba(5, 15, 50, 0.65);
+  backdrop-filter: blur(18px);
+
+  border-radius: 16px;
+  border: 1px solid rgba(0, 212, 212, 0.2);
+  border-top: 2px solid rgba(80, 200, 255, 0.35);
+
+  box-shadow:
+    0 0 0 1px rgba(5, 15, 50, 0.5),
+    0 24px 64px rgba(0, 5, 40, 0.85),
+    inset 0 1px 0 rgba(150, 220, 255, 0.07);
+
+  animation: surface-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes surface-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+form ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+form ul li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal-surface);
+}
+
+input[type="text"] {
+  background: rgba(0, 10, 40, 0.5);
+  border: none;
+  border-bottom: 1.5px solid rgba(0, 212, 212, 0.28);
+  color: var(--foam-white);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  padding: 10px 6px;
+  width: 100%;
+  outline: none;
+  transition:
+    border-color 0.25s,
+    background 0.25s;
+}
+
+input[type="text"]::placeholder {
+  color: rgba(0, 212, 212, 0.2);
+  font-style: italic;
+}
+
+input[type="text"]:focus {
+  border-bottom: 2px solid var(--teal-surface);
+  background: rgba(0, 60, 100, 0.2);
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+
+  background: linear-gradient(
+    135deg,
+    var(--teal-surface) 0%,
+    var(--blue-light) 100%
+  );
+  border: none;
+  border-radius: 50px;
+
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--silhouette2);
+
+  cursor: pointer;
+  box-shadow:
+    0 0 20px rgba(0, 212, 212, 0.35),
+    0 6px 20px rgba(0, 40, 100, 0.5);
+  transition:
+    filter 0.3s,
+    transform 0.2s,
+    box-shadow 0.3s;
+}
+
+button[type="submit"]:hover {
+  filter: brightness(1.12);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 36px rgba(0, 212, 212, 0.55),
+    0 10px 28px rgba(0, 40, 100, 0.6);
+}
+
+button[type="submit"]:active {
+  transform: scale(0.99);
+  filter: brightness(0.95);
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--indigo);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--teal-mid), var(--blue-mid));
+  border-radius: 3px;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .container {
+    padding: 32px 16px 120px;
+  }
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  form {
+    padding: 28px 20px;
+  }
+  h1 {
+    font-size: 2.4rem;
+  }
+}
+
+/* ─── SEARCH FORM ────────────────────────────────────────────── */
+form[action=""] input[name="keyword"] ~ button,
+.search-form button,
+form input[name="keyword"] {
+  /* handled below per element */
+}
+
+/* wrapper form search — supaya input & button sejajar */
+form:has(input[name="keyword"]) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 600px;
+  margin-bottom: 28px;
+
+  /* override form style sebelumnya (biar tidak ikut box add.php) */
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  animation: none;
+  backdrop-filter: none;
+}
+
+/* input search */
+form:has(input[name="keyword"]) input[type="text"] {
+  flex: 1;
+  background: rgba(0, 10, 40, 0.55);
+  border: 1.5px solid rgba(0, 212, 212, 0.28);
+  border-radius: 50px;
+  color: var(--foam-white);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  padding: 12px 24px;
+  outline: none;
+  transition:
+    border-color 0.3s,
+    background 0.3s,
+    box-shadow 0.3s;
+
+  /* override border-bottom dari style form biasa */
+  border-bottom: 1.5px solid rgba(0, 212, 212, 0.28);
+}
+
+form:has(input[name="keyword"]) input[type="text"]::placeholder {
+  color: rgba(0, 212, 212, 0.3);
+  font-style: normal;
+}
+
+form:has(input[name="keyword"]) input[type="text"]:focus {
+  background: rgba(0, 50, 90, 0.35);
+  border-color: var(--teal-surface);
+  box-shadow:
+    0 0 0 3px rgba(0, 212, 212, 0.1),
+    0 0 20px rgba(0, 212, 212, 0.15);
+}
+
+/* tombol search */
+form:has(input[name="keyword"]) button[type="submit"] {
+  width: auto;
+  padding: 12px 28px;
+  margin-top: 0;
+
+  background: linear-gradient(
+    135deg,
+    var(--teal-surface) 0%,
+    var(--blue-light) 100%
+  );
+  border: none;
+  border-radius: 50px;
+
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-style: normal;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--silhouette2);
+  font-weight: 700;
+
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow:
+    0 0 18px rgba(0, 212, 212, 0.35),
+    0 4px 16px rgba(0, 40, 100, 0.45);
+  transition:
+    filter 0.3s,
+    transform 0.2s,
+    box-shadow 0.3s;
+}
+
+form:has(input[name="keyword"]) button[type="submit"]:hover {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 30px rgba(0, 212, 212, 0.55),
+    0 8px 24px rgba(0, 40, 100, 0.55);
+}
+
+form:has(input[name="keyword"]) button[type="submit"]:active {
+  transform: scale(0.98);
+  filter: brightness(0.95);
+}
