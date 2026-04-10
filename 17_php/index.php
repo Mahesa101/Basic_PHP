@@ -1,0 +1,81 @@
+<?php
+session_start();
+//cek apakah sudah login belum
+if (!isset($_SESSION["login"])) {
+    header("Location: login.php");
+    exit;
+};
+
+
+//ada dua cara untuk terhubung dengan file lain yaitu 
+require 'functions.php';
+// include 'functions.php';
+$data = query("SELECT * FROM website");
+
+if (isset($_POST["search"])) {
+    $data = cari($_POST["keyword"]);
+};
+?>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman admin</title>
+
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+
+<body>
+    <div class="seafloor"></div>
+<a href="logout.php">Logout</a>
+
+    <div class="container">
+        <h1>Daftar Website</h1>
+
+        <a href="add.php" target="_blank">ADD News Item</a>
+        <br><br>
+
+        <form action="" method="post">
+            <input type="text" name="keyword" autofocus placeholder="Enter a search keyword" autocomplete="off">
+            <button type="submit" name="search">search</button>
+        </form>
+
+
+        <table>
+
+            <th>NO.</th>
+            <th>Aksi</th>
+            <th>Gambar</th>
+            <th>Nama</th>
+            <th>URL</th>
+            <th>Kategori</th>
+            <th>Bahasa Backend</th>
+            <th>Deskirpsi</th>
+            <?php $i = 1; ?>
+            <?php foreach ($data as $datas) : ?>
+                <tr>
+                    <td><?= $i; ?></td>
+                    <td>
+                        <a href="edit.php?id=<?= $datas["DataID"] ?>">Edit</a> |
+                        <a href="delete.php?id=<?= $datas["DataID"]; ?>" onclick="return confirm('sure?')">Delete</a>
+                    </td>
+                    <td><img src="../logo/<?= $datas["DataGambar"] ?>" alt="gambar" width="50"></td>
+                    <td><?= $datas["DataNama"] ?></td>
+                    <td><?= $datas["DataURL"] ?></td>
+                    <td><?= $datas["DataKategori"] ?></td>
+                    <td><?= $datas["DataTech"] ?></td>
+                    <td><?= $datas["DataKeterangan"] ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach; ?>
+        </table>
+    </div>
+</body>
+
+</html>
