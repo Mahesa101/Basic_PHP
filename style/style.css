@@ -512,11 +512,12 @@ td:nth-child(5) {
   white-space: nowrap;
 }
 
-/* ─── FORM ───────────────────────────────────────────────────── */
-form {
+/* ─── FORM — card box (add.php & edit.php) ───────────────────── */
+/* hanya form yang punya ul di dalamnya dan BUKAN search form     */
+form:has(ul) {
   max-width: 480px;
   width: 100%;
-  margin: 0 auto;          /* ← tengah horizontal */
+  margin: 0 auto;
   padding: 42px 44px;
 
   background: rgba(5, 15, 50, 0.65);
@@ -534,12 +535,30 @@ form {
   animation: surface-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+@keyframes surface-up {
+  from { opacity: 0; transform: translateY(32px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-/* khusus halaman yang hanya berisi form (add, login, register) */
-.container:has(> form):not(:has(table)) {
+/* layout form list */
+form:has(ul) ul {
+  list-style: none;
   display: flex;
   flex-direction: column;
-  align-items: center;        /* ← tengah horizontal */
+  gap: 22px;
+}
+
+form:has(ul) ul li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* tengahkan container di halaman add / edit (ada form:has(ul), tidak ada table) */
+.container:has(form:has(ul)):not(:has(table)) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   min-height: 100vh;
   padding-top: 0;
@@ -680,6 +699,74 @@ form:has(input[name="keyword"]) button[type="submit"]:active {
   filter: brightness(0.95);
 }
 
+/* ─── LABEL & INPUT dalam form card ─────────────────────────── */
+form:has(ul) label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal-surface);
+}
+
+form:has(ul) input[type="text"],
+form:has(ul) input[type="password"] {
+  background: rgba(0, 10, 40, 0.5);
+  border: none;
+  border-bottom: 1.5px solid rgba(0, 212, 212, 0.28);
+  color: var(--foam-white);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  padding: 10px 6px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s;
+  border-radius: 0;
+}
+
+form:has(ul) input[type="text"]::placeholder,
+form:has(ul) input[type="password"]::placeholder {
+  color: rgba(0, 212, 212, 0.2);
+  font-style: italic;
+}
+
+form:has(ul) input[type="text"]:focus,
+form:has(ul) input[type="password"]:focus {
+  border-bottom: 2px solid var(--teal-surface);
+  background: rgba(0, 60, 100, 0.2);
+}
+
+form:has(ul) button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+
+  background: linear-gradient(135deg, var(--teal-surface) 0%, var(--blue-light) 100%);
+  border: none;
+  border-radius: 50px;
+
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silhouette2);
+
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 212, 212, 0.35), 0 6px 20px rgba(0, 40, 100, 0.5);
+  transition: filter 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+form:has(ul) button[type="submit"]:hover {
+  filter: brightness(1.12);
+  transform: translateY(-2px);
+  box-shadow: 0 0 36px rgba(0, 212, 212, 0.55), 0 10px 28px rgba(0, 40, 100, 0.6);
+}
+
+form:has(ul) button[type="submit"]:active {
+  transform: scale(0.99);
+  filter: brightness(0.95);
+}
+
 /* ─── FILE INPUT (GAMBAR) ────────────────────────────────────── */
 
 /* sembunyikan input file asli bawaan browser */
@@ -687,8 +774,8 @@ input[type="file"] {
   display: none;
 }
 
-/* label "Gambar:" jadi tombol upload seperti pill teal */
-label[for="gambar"] {
+/* label gambar — hanya di dalam form yang punya ul (add/edit) */
+form:has(ul) label[for="gambar"] {
   display: inline-block;
   padding: 10px 24px;
   margin-top: 4px;
@@ -712,13 +799,13 @@ label[for="gambar"] {
   user-select: none;
 }
 
-label[for="gambar"]::before {
+form:has(ul) label[for="gambar"]::before {
   content: "⬆ ";
   font-size: 0.8rem;
   opacity: 0.7;
 }
 
-label[for="gambar"]:hover {
+form:has(ul) label[for="gambar"]:hover {
   background: rgba(0, 60, 90, 0.35);
   border-color: var(--teal-surface);
   border-style: solid;
@@ -832,24 +919,12 @@ li:has(input[name="Gambar"]) img:hover {
   80%       { transform: translateX(4px); }
 }
 
-/* ── form card auth ── */
+/* ── form card auth — override form:has(ul) untuk auth pages ── */
 .auth-form {
-  width: 100%;
-  max-width: 400px !important;
-  padding: 38px 40px !important;
-
-  background: rgba(5, 15, 50, 0.65) !important;
-  backdrop-filter: blur(18px) !important;
-  border-radius: 16px !important;
-  border: 1px solid rgba(0, 212, 212, 0.2) !important;
-  border-top: 2px solid rgba(80, 200, 255, 0.35) !important;
-
-  box-shadow:
-    0 0 0 1px rgba(5, 15, 50, 0.5),
-    0 24px 64px rgba(0, 5, 40, 0.85),
-    inset 0 1px 0 rgba(150, 220, 255, 0.07) !important;
-
-  animation: surface-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+  max-width: 400px;
+  padding: 38px 40px;
+  border-radius: 16px;
+  animation: surface-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* ── link bawah form (daftar / login) ── */

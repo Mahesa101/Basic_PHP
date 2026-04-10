@@ -14,7 +14,7 @@ function query($web)
 
 function upload()
 {
-    //['Gambar'] dapet dari name di file add
+    //['Gambar'] dapet dari name di file add /['Gambar'] "filenya" sementara berada di file add
     $namaF = $_FILES['Gambar']['name'];
     $ukuranF = $_FILES['Gambar']['size'];
     $error = $_FILES['Gambar']['error'];
