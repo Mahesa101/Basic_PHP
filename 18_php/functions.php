@@ -172,11 +172,20 @@ function cari($keyword)
     $query = "SELECT * FROM website
             WHERE
             DataNama LIKE '%$keyword%' OR
-            DataKategori LIKE '%$keyword%' OR
             DataTech LIKE '%$keyword%'
 ";
     return query($query);
 };
+
+function cariWithLimit($keyword, $awal, $limit)
+{
+    $query = "SELECT * FROM website
+              WHERE
+              DataNama LIKE '%$keyword%' OR
+              DataTech LIKE '%$keyword%'
+              LIMIT $awal, $limit";
+    return query($query);
+}
 
 
 function registrasi($data)

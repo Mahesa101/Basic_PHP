@@ -14,23 +14,30 @@ require 'functions.php';
 //cara untuk membuat batasan agar data tidak begitu banyak dalam satu page
 
 $jumlahDataPage = 5;
-$jumlahData = count(query("SELECT * FROM website"));
+$keyword = '';
+if (isset($_POST['keyword'])) {
+    $keyword = $_POST['keyword'];
+} elseif (isset($_GET['keyword'])) {
+    $keyword = $_GET['keyword'];
+}
 
-//rumus
-//jumlah halaman = jumlahdataperhalan / jumlah data;
+// Hitung total dulu
+if ($keyword !== '') {
+    $jumlahData = count(cari($keyword)); // fungsi cari lama, tanpa limit
+} else {
+    $jumlahData = count(query("SELECT * FROM website"));
+}
+
 $jumlahPage = ceil($jumlahData / $jumlahDataPage);
-//ceil/floar/round adalah cara untuk membulatkan
-
-//cek halaman
-$pageAktif = (isset($_GET["page"])) ? $_GET["page"] : 1;
+$pageAktif = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $awalData = ($jumlahDataPage * $pageAktif) - $jumlahDataPage;
 
-// include 'functions.php';
-$data = query("SELECT * FROM website LIMIT $awalData, $jumlahDataPage");
-
-if (isset($_POST["search"])) {
-    $data = cari($_POST["keyword"]);
-};
+// Query data dengan limit
+if ($keyword !== '') {
+    $data = cariWithLimit($keyword, $awalData, $jumlahDataPage);
+} else {
+    $data = query("SELECT * FROM website LIMIT $awalData, $jumlahDataPage");
+}
 ?>
 
 
@@ -57,25 +64,28 @@ if (isset($_POST["search"])) {
         <a href="add.php" target="_blank">ADD News Item</a>
         <br><br>
 
-        <form action="" method="post">
+        <form action="" method="get">
             <input type="text" name="keyword" autofocus placeholder="Enter a search keyword" autocomplete="off">
             <button type="submit" name="search">search</button>
         </form>
 
         <!-- navigator page -->
+         <?php $queryString = $keyword !== '' ? '&keyword=' . urlencode($keyword) : ''; ?>
+
         <?php if ($pageAktif > 1): ?>
-            <a href="?page=<?= $pageAktif - 1; ?>">&lt;</a>
+            <a href="?page=<?= $pageAktif - 1 . $queryString; ?>">&lt;</a>
         <?php endif; ?>
 
         <?php for ($i = 1; $i <= $jumlahPage; $i++) : ?>
             <?php if ($i === $pageAktif) : ?>
-                <a href="?page=<?= $i ?>" class="page"> <?= $i; ?></a>
+                <a href="?page=<?= $i . $queryString?>" class="page"> <?= $i; ?></a>
             <?php else : ?>
-                <a href="?page=<?= $i ?>"> <?= $i; ?></a>
+                <a href="?page=<?= $i. $queryString?>"> <?= $i; ?></a>
             <?php endif; ?>
         <?php endfor ?>
+
         <?php if ($pageAktif < $jumlahPage): ?>
-            <a href="?page=<?= $pageAktif + 1; ?>">&gt;</a>
+            <a href="?page=<?= $pageAktif + 1 . $queryString ?>">&gt;</a>
         <?php endif; ?>
         <table>
 
