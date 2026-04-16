@@ -17,7 +17,7 @@ keyword.addEventListener("keyup", function () {
 
   //eksekusi ajax
   //rumus
-  //   ajax.open("method","asal",jika true itu Asynchronous sedang kan false Synchronous)
+  //   ajax.open("method","tujuan",jika true itu Asynchronous sedang kan false Synchronous)
   ajax.open("GET", "ajax/dataweb.php?keyword=" + keyword.value, true);
   ajax.send();
 });
