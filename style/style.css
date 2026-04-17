@@ -536,8 +536,14 @@ form:has(ul) {
 }
 
 @keyframes surface-up {
-  from { opacity: 0; transform: translateY(32px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* layout form list */
@@ -719,7 +725,9 @@ form:has(ul) input[type="password"] {
   padding: 10px 6px;
   width: 100%;
   outline: none;
-  transition: border-color 0.25s, background 0.25s;
+  transition:
+    border-color 0.25s,
+    background 0.25s;
   border-radius: 0;
 }
 
@@ -740,7 +748,11 @@ form:has(ul) button[type="submit"] {
   padding: 14px;
   margin-top: 6px;
 
-  background: linear-gradient(135deg, var(--teal-surface) 0%, var(--blue-light) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--teal-surface) 0%,
+    var(--blue-light) 100%
+  );
   border: none;
   border-radius: 50px;
 
@@ -752,14 +764,21 @@ form:has(ul) button[type="submit"] {
   color: var(--silhouette2);
 
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(0, 212, 212, 0.35), 0 6px 20px rgba(0, 40, 100, 0.5);
-  transition: filter 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow:
+    0 0 20px rgba(0, 212, 212, 0.35),
+    0 6px 20px rgba(0, 40, 100, 0.5);
+  transition:
+    filter 0.3s,
+    transform 0.2s,
+    box-shadow 0.3s;
 }
 
 form:has(ul) button[type="submit"]:hover {
   filter: brightness(1.12);
   transform: translateY(-2px);
-  box-shadow: 0 0 36px rgba(0, 212, 212, 0.55), 0 10px 28px rgba(0, 40, 100, 0.6);
+  box-shadow:
+    0 0 36px rgba(0, 212, 212, 0.55),
+    0 10px 28px rgba(0, 40, 100, 0.6);
 }
 
 form:has(ul) button[type="submit"]:active {
@@ -837,7 +856,6 @@ li:has(input[name="Gambar"]) img:hover {
   box-shadow: 0 0 20px rgba(0, 212, 212, 0.25);
 }
 
-
 /* ================================================================
    AUTH PAGES — login.php & Registration.php
    ================================================================ */
@@ -865,8 +883,13 @@ li:has(input[name="Gambar"]) img:hover {
 }
 
 @keyframes bob {
-  0%, 100% { transform: translateY(0);    }
-  50%       { transform: translateY(-8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 /* ── judul auth ── */
@@ -912,11 +935,22 @@ li:has(input[name="Gambar"]) img:hover {
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%       { transform: translateX(-6px); }
-  40%       { transform: translateX(6px); }
-  60%       { transform: translateX(-4px); }
-  80%       { transform: translateX(4px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
 }
 
 /* ── form card auth — override form:has(ul) untuk auth pages ── */
@@ -941,7 +975,9 @@ li:has(input[name="Gambar"]) img:hover {
   color: var(--teal-surface);
   border-bottom: 1px solid rgba(0, 212, 212, 0.3);
   padding-bottom: 1px;
-  transition: color 0.2s, border-color 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
 }
 
 .auth-link a:hover {
@@ -953,4 +989,177 @@ li:has(input[name="Gambar"]) img:hover {
 input[type="password"] {
   letter-spacing: 0.2em;
   font-size: 1rem;
+}
+
+/* ================================================================
+   TAMBAHAN — logout/print bar, pagination, checkbox remember me
+   ================================================================ */
+
+/* ─── LOGOUT & PRINT BAR ─────────────────────────────────────── */
+/* link Logout dan Print yang ada di atas .container di index.php  */
+body > a {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  margin: 20px 0 0 36px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+body > a:hover {
+  color: var(--foam-white);
+}
+
+/* pemisah || di antara Logout dan Print */
+body > a + a {
+  margin-left: 4px;
+}
+
+/* ─── PAGINATION ─────────────────────────────────────────────── */
+#container {
+  position: relative;
+  z-index: 1;
+}
+
+/* wrapper nomor halaman */
+#container > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  margin: 0 3px 16px;
+
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-decoration: none;
+
+  background: rgba(0, 10, 40, 0.45);
+  border: 1px solid rgba(0, 212, 212, 0.18);
+  border-radius: 8px;
+
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.15s;
+}
+
+#container > a:hover {
+  background: rgba(0, 100, 130, 0.3);
+  border-color: var(--teal-surface);
+  color: var(--foam-white);
+  transform: translateY(-1px);
+}
+
+/* halaman aktif */
+#container > a.page {
+  background: linear-gradient(
+    135deg,
+    var(--teal-surface) 0%,
+    var(--blue-light) 100%
+  );
+  border-color: transparent;
+  color: var(--silhouette2);
+  font-weight: 700;
+  box-shadow: 0 0 14px rgba(0, 212, 212, 0.4);
+  pointer-events: none;
+}
+
+/* tombol < dan > prev/next */
+#container > a[href*="page"]:first-of-type,
+#container > a[href*="page"]:last-of-type {
+  font-size: 0.85rem;
+  color: var(--teal-surface);
+}
+
+/* ─── CHECKBOX REMEMBER ME ───────────────────────────────────── */
+/* sembunyikan checkbox bawaan browser */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* label Remember jadi toggle pill */
+label[for="remember"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  user-select: none;
+  transition: color 0.2s;
+}
+
+/* track toggle */
+label[for="remember"]::before {
+  content: "";
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  border-radius: 20px;
+  background: rgba(0, 10, 40, 0.6);
+  border: 1.5px solid rgba(0, 212, 212, 0.3);
+  transition:
+    background 0.3s,
+    border-color 0.3s;
+  flex-shrink: 0;
+}
+
+/* thumb toggle */
+label[for="remember"]::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  margin-left: 3px;
+  margin-top: 3px;
+  transition:
+    transform 0.3s,
+    background 0.3s;
+}
+
+/* trik: pakai li yang wrapping checkbox+label */
+li:has(input[type="checkbox"]) {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+/* saat checkbox di-check — track berubah teal */
+input[type="checkbox"]:checked + label[for="remember"] {
+  color: var(--teal-surface);
+}
+
+input[type="checkbox"]:checked + label[for="remember"]::before {
+  background: rgba(0, 212, 212, 0.25);
+  border-color: var(--teal-surface);
+  box-shadow: 0 0 10px rgba(0, 212, 212, 0.25);
+}
+
+input[type="checkbox"]:checked + label[for="remember"]::after {
+  transform: translateX(16px);
+  background: var(--teal-surface);
+}
+
+label[for="remember"]:hover {
+  color: var(--foam-white);
+}
+
+label[for="remember"]:hover::before {
+  border-color: rgba(0, 212, 212, 0.6);
 }
